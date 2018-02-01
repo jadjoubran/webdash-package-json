@@ -1,45 +1,58 @@
-<dom-module id="package-json">
-    <template>
-        <style>
-        </style>
+<link rel="import" href="../polymer/polymer-element.html">
 
-        <h1>Packages</h1>
+<dom-module id="webdash-package-json">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
 
-        <h2>Dependencies</h2>
-        <template is="dom-repeat" items="{{_getKeys(package.dependencies)}}">
-            <div>{{item}}</div>
-        </template>
+    <h1>Packages</h1>
 
-        <h2>Dev dependencies</h2>
-        <template is="dom-repeat" items="{{_getKeys(package.devDependencies)}}">
-            <div>{{item}}</div>
-        </template>
-
+    <h2>Dependencies</h2>
+    <template is="dom-repeat" items="{{_getKeys(package.dependencies)}}">
+      <div>{{item}}</div>
     </template>
 
-    <script>
-        class WebdashPackageJson extends Polymer.Element {
-            static get is() { return 'webdash-package-json'; }
+    <h2>Dev dependencies</h2>
+    <template is="dom-repeat" items="{{_getKeys(package.devDependencies)}}">
+      <div>{{item}}</div>
+    </template>
+  </template>
 
-            ready() {
-                super.ready();
+  <script>
+    /**
+     * `webdash-package-json`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class WebdashPackageJson extends Polymer.Element {
+      static get is() { return 'webdash-package-json'; }
 
-                fetch('http://localhost:3000/api/package-json/package-json')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.package) {
-                            this.package = data.package;
-                            console.log(this.package);
-                        }
-                    })
-                    .catch(console.error);
+      ready() {
+        super.ready();
+
+        fetch('http://localhost:3000/api/package-json/package-json')
+          .then(response => response.json())
+          .then(data => {
+            if (data && data.package) {
+              this.package = data.package;
+              console.log(this.package);
             }
+          })
+          .catch(console.error);
+      }
 
-            _getKeys(object) {
-                return Object.keys(object);
-            }
-        }
+      _getKeys(object) {
+        return Object.keys(object);
 
-        window.customElements.define(WebdashPackageJson.is, WebdashPackageJson);
-    </script>
+      }
+    }
+
+    window.customElements.define(WebdashPackageJson.is, WebdashPackageJson);
+  </script>
 </dom-module>

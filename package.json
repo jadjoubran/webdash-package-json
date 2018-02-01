@@ -1,8 +1,0 @@
-{
-  "name": "webdash-package-json",
-  "version": "0.0.1",
-  "main": "index.js",
-  "repository": "git@github.com:jadjoubran/webdash-package-json.git",
-  "author": "Jad Joubran <joubran.jad@gmail.com>",
-  "license": "MIT"
-}

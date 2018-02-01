@@ -1,20 +1,15 @@
 {
   "name": "webdash-package-json",
-  "description": "",
-  "main": "index.js",
-  "authors": [
-    "Jad Joubran <joubran.jad@gmail.com>"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/jadjoubran/webdash-package-json",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "main": "webdash-package-json.html",
   "dependencies": {
-    "polymer": "^2.4.0"
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.0.0"
   }
 }

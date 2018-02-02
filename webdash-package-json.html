@@ -36,15 +36,14 @@
       ready() {
         super.ready();
 
+        console.log('ready');
         //this will use a wrapper and then simply be `/package-json`
         fetch('/api/webdash-package-json/package-json')
           .then(response => response.json())
           .then(data => {
             console.log(data);
             console.log(data.result);
-            if (data && data.package) {
-              this.package = data.package;
-            }
+            
           })
           .catch(console.error);
       }

@@ -10,14 +10,8 @@
 
     <h1>Packages</h1>
 
-    <h2>Dependencies</h2>
-    <template is="dom-repeat" items="{{_getKeys(package.dependencies)}}">
-      <div>{{item}}</div>
-    </template>
-
-    <h2>Dev dependencies</h2>
-    <template is="dom-repeat" items="{{_getKeys(package.devDependencies)}}">
-      <div>{{item}}</div>
+    <template is="dom-repeat" items="{{packages}}">
+      <div>{{item.name}}: {{item.version}}</div>
     </template>
   </template>
 
@@ -41,16 +35,18 @@
         fetch('/api/webdash-package-json/package-json')
           .then(response => response.json())
           .then(data => {
-            console.log(data);
+            if (!data.result) {
+              return false;
+            }
             console.log(data.result);
-            
+            const packages = [];
+
+            for (const [key, value] of Object.entries(data.result)) {
+              packages.push({ name: key, version: value.version });
+            }
+            this.packages = packages;
           })
           .catch(console.error);
-      }
-
-      _getKeys(object) {
-        return Object.keys(object);
-
       }
     }
 

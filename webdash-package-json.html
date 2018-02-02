@@ -40,6 +40,8 @@
         fetch('/api/webdash-package-json/package-json')
           .then(response => response.json())
           .then(data => {
+            console.log(data);
+            console.log(data.result);
             if (data && data.package) {
               this.package = data.package;
             }

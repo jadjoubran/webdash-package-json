@@ -32,7 +32,7 @@
 
         console.log('ready');
         //this will use a wrapper and then simply be `/package-json`
-        fetch('/api/webdash-package-json/package-json')
+        fetch('http://localhost:3000/api/webdash-package-json/package-json')
           .then(response => response.json())
           .then(data => {
             if (!data.result) {

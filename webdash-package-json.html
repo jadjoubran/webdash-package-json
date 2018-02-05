@@ -1,5 +1,5 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="/bower_components/paper-spinner/paper-spinner.html">
 
 <dom-module id="webdash-package-json">
   <template>
@@ -12,30 +12,66 @@
         width: 20px;
         height: 20px;
       }
+
+      .update {
+        padding: 5px;
+        border-radius: 4px;
+        background-color: #1F2D38;
+        display: inline-block;
+      }
+
+      .name {
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 500;
+      }
+
+      .version {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .packages {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .package {
+        padding: 13px;
+      }
     </style>
 
-    <h1>Packages</h1>
-
-    <template id="packages" is="dom-repeat" items="{{packages}}">
-      <div>
-        {{item.name}}: {{item.version}}
-        <template is="dom-if" if="{{item.latest}}">
-          <small>({{item.latest}})</small>
-          <span on-click="_update">
-            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 433.5 433.5">
-              <path d="M395.25 153h-102V0h-153v153h-102l178.5 178.5L395.25 153zm-357 229.5v51h357v-51h-357z" id="file-download" />
-            </svg>
-          </span>
-          <paper-spinner class="spinner"></paper-spinner>
-        </template>
-      </div>
+    <div class="packages">
+      <template id="packages" is="dom-repeat" items="{{packages}}">
+        <div class="package">
+          <div class="name">{{item.name}}</div>
+          <div class="version">{{item.version}}</div>
+          <template is="dom-if" if="{{item.latest}}">
+            <small>({{item.latest}})</small>
+            <span on-click="_update">
+              <div class="update">
+                <svg viewBox="0 0 11 11" width="11" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g transform="translate(417 258)">
+                    <use xlink:href="#path0_fill" transform="translate(-417 -259)" fill="#FFF" id="ï£" />
+                  </g>
+                  <defs>
+                    <path id="path0_fill" d="M9.68 5.703a.637.637 0 0 0-.399-.14.565.565 0 0 0-.398.164L6.188 8.539V1.813a.659.659 0 0 0-.165-.399.665.665 0 0 0-.398-.164h-.75a.565.565 0 0 0-.398.164.549.549 0 0 0-.165.399v6.726L1.618 5.727a.665.665 0 0 0-.398-.165.551.551 0 0 0-.399.141l-.515.54a.549.549 0 0 0-.164.398c0 .164.047.304.164.398l4.547 4.547c.093.117.234.164.398.164a.55.55 0 0 0 .398-.164l4.547-4.547a.565.565 0 0 0 .164-.398.663.663 0 0 0-.164-.399l-.515-.539z"
+                    />
+                  </defs>
+                </svg>
+              </div>
+            </span>
+            <paper-spinner class="spinner"></paper-spinner>
+          </template>
+        </div>
+    </div>
     </template>
+    </div>
   </template>
 
   <script>
     /**
      * `webdash-package-json`
-     * 
+     *
      *
      * @customElement
      * @polymer
@@ -47,11 +83,13 @@
       ready() {
         super.ready();
 
+        this.backend = new Backend('webdash-package-json');
+
         this._getPackages();
       }
 
       _getPackages() {
-        backend.get('webdash-package-json/package-json')
+        this.backend.get('package-json')
           .then(data => {
             if (!data.result) {
               return false;
@@ -68,7 +106,7 @@
       }
 
       _getOutated() {
-        backend.get('webdash-package-json/outdated')
+        this.backend.get('outdated')
           .then(data => {
             if (!data.result) {
               return false;
@@ -95,7 +133,7 @@
         const spinner = event.currentTarget.nextElementSibling;
         spinner.active = true;
         event.currentTarget.remove();
-        backend.post('webdash-package-json/update', {
+        this.backend.post('update', {
           name: event.model.item.name
         })
           .then(data => {

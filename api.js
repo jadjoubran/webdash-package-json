@@ -39,7 +39,7 @@ module.exports = {
                     let result;
                     if (useYarn) {
                         //need to filter out packages that are not in package.json
-                        const appRoot = path.dirname(process.argv[1]);
+                        const appRoot = req.app.locals.appRoot;
                         const packageJson = require(`${appRoot}/package.json`);
                         const deps = [...Object.keys(packageJson.dependencies), ...Object.keys(packageJson.devDependencies)];
                         let installed = JSON.parse(list).data.trees;

@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="/bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
 
 <dom-module id="webdash-package-json">
   <template>
@@ -14,25 +15,40 @@
       }
 
       .update {
-        padding: 5px;
         border-radius: 4px;
         background-color: #1F2D38;
         display: inline-block;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
       }
 
       .name {
         color: rgba(255, 255, 255, 0.75);
         font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .version-container {
+        display: flex;
+        align-items: center;
       }
 
       .version {
         font-size: 24px;
         font-weight: bold;
+        margin-right: 11px;
       }
 
       .packages {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        /*not using 1fr 1fr 1fr for ellipsis to work in .name*/
+        grid-template-columns: 33% 33% 33%;
       }
 
       .package {
@@ -43,12 +59,14 @@
     <div class="packages">
       <template id="packages" is="dom-repeat" items="{{packages}}">
         <div class="package">
-          <div class="name">{{item.name}}</div>
-          <div class="version">{{item.version}}</div>
-          <template is="dom-if" if="{{item.latest}}">
-            <small>({{item.latest}})</small>
-            <span on-click="_update">
-              <div class="update">
+          <div>
+            <paper-tooltip>{{item.name}}</paper-tooltip>
+            <div class="name">{{item.name}}</div>
+          </div>
+          <div class="version-container">
+            <div class="version">{{item.version}}</div>
+            <template is="dom-if" if="{{item.latest}}">
+              <div class="update" on-click="_update">
                 <svg viewBox="0 0 11 11" width="11" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <g transform="translate(417 258)">
                     <use xlink:href="#path0_fill" transform="translate(-417 -259)" fill="#FFF" id="ï£" />
@@ -59,9 +77,10 @@
                   </defs>
                 </svg>
               </div>
-            </span>
-            <paper-spinner class="spinner"></paper-spinner>
-          </template>
+              <paper-spinner class="spinner"></paper-spinner>
+              <paper-tooltip animation-delay="0">Update to {{item.latest}}</paper-tooltip>
+            </template>
+          </div>
         </div>
     </div>
     </template>

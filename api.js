@@ -15,7 +15,7 @@ const commands = {
 
 if (useYarn) {
     commands.list = 'yarn list --depth=0 --json --no-progress';
-    commands.update = 'yarn update';
+    commands.update = 'yarn upgrade';
     //outdated is safe to be used by npm
 }
 
@@ -31,12 +31,18 @@ module.exports = {
     routes: {
         get: {
             'package-json': (req, res) => {
+                const appRoot = req.app.locals.appRoot;
+
                 exec(commands.list, (error, list) => {
                     if (error !== null) {
                         console.log('exec error: ' + error);
                         return;
                     }
-                    let result;
+
+                    let result = {};
+                    if (!fs.existsSync(`${appRoot}/package.json`)) {
+                        return res.send({ result });
+                    }
                     if (useYarn) {
                         //need to filter out packages that are not in package.json
                         const appRoot = req.app.locals.appRoot;

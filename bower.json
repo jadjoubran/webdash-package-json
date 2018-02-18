@@ -3,7 +3,8 @@
   "main": "webdash-package-json.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0"
+    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
+    "paper-tooltip": "PolymerElements/paper-tooltip#^2.0.1"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

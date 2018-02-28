@@ -16,9 +16,10 @@
 
       .update {
         border-radius: 4px;
-        background-color: #1F2D38;
+        background-color: var(--brand);
         display: inline-block;
         width: 22px;
+        min-width: 22px;
         height: 22px;
         display: flex;
         align-items: center;
@@ -54,6 +55,40 @@
       .package {
         padding: 13px;
       }
+
+
+      @keyframes wiggle {
+        0% {
+          transform: rotate(0deg);
+        }
+        70% {
+          transform: rotate(0deg);
+        }
+        80% {
+          transform: rotate(10deg);
+        }
+        90% {
+          transform: rotate(-10deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
+      .update {
+        animation: wiggle 1s 2;
+        will-change: transform;
+      }
+
+      .done {
+        transition: transform 250ms ease-in;
+        transform: scale(0) rotateZ(180deg);
+        will-change: transform;
+      }
+
+      .done.show {
+        transform: scale(1) rotateZ(360deg);
+      }
     </style>
 
     <div class="packages">
@@ -78,7 +113,13 @@
                 </svg>
               </div>
               <paper-spinner class="spinner"></paper-spinner>
-              <paper-tooltip animation-delay="0">Update to {{item.latest}}</paper-tooltip>
+              <div class="done">
+                <svg fill="var(--success)" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <paper-tooltip position="top" animation-delay="0">Update to {{item.latest}}</paper-tooltip>
             </template>
           </div>
         </div>
@@ -152,6 +193,7 @@
         const spinner = event.currentTarget.nextElementSibling;
         spinner.active = true;
         event.currentTarget.remove();
+
         this.backend.post('update', {
           name: event.model.item.name
         })
@@ -159,7 +201,16 @@
             if (!data.result) {
               return false;
             }
-            this._getPackages();
+            spinner.active = false;
+            spinner.style.display = 'none';
+            const done = spinner.nextElementSibling;
+            done.classList.add('show');
+            setTimeout(() => {
+              this._getPackages();
+            }, 2000);
+            setTimeout(() => {
+              done.classList.remove('show');
+            }, 4000);
           })
           .catch((err) => {
             console.error(err);

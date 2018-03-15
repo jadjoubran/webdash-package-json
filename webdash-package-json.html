@@ -1,5 +1,5 @@
-<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="/bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
 
 <dom-module id="webdash-package-json">
   <template>
@@ -88,9 +88,22 @@
       .done.show {
         transform: scale(1) rotateZ(360deg);
       }
+
+      .initial-loader{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+        grid-column: 1 / span 3;
+      }
     </style>
 
     <div class="packages">
+      <template is="dom-if" if="{{initialLoading}}">
+        <div class="initial-loader">
+          <paper-spinner active></paper-spinner>
+        </div>
+      </template>
       <template id="packages" is="dom-repeat" items="{{packages}}">
         <div class="package">
           <div>
@@ -144,6 +157,7 @@
 
         this.backend = new Backend('webdash-package-json');
 
+        this.initialLoading = true;
         this._getPackages();
       }
 
@@ -161,7 +175,10 @@
             this.packages = packages;
             this._getOutated();
           })
-          .catch(console.error);
+          .catch(console.error)
+          .finally(() => {
+            this.initialLoading = false;
+          });
       }
 
       _getOutated() {

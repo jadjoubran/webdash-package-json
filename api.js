@@ -27,13 +27,15 @@ const yarnGetPkgVersion = (pkg) => {
     return pkg.name.substr(pkg.name.indexOf('@') + 1);
 }
 
+const options = { maxBuffer: 1024 * 2000 };
+
 module.exports = {
     routes: {
         get: {
             'package-json': (req, res) => {
                 const appRoot = req.app.locals.appRoot;
 
-                exec(commands.list, {maxBuffer: 1024 * 2000}, (error, list) => {
+                exec(commands.list, options, (error, list) => {
                     if (error !== null) {
                         console.log('exec error: ' + error);
                         return;
@@ -65,7 +67,7 @@ module.exports = {
                 });
             },
             'outdated': (req, res) => {
-                exec(commands.outdated, (error, outdated) => {
+                exec(commands.outdated, options, (error, outdated) => {
                     /* unexpected behavior in npm
                     * npm outdated returns status code 1 rather than 0
                     thus we're not checking for error */
@@ -81,7 +83,7 @@ module.exports = {
                 if (!body || !body.name) {
                     res.send(false);
                 }
-                exec(`${commands.update} ${body.name}`, (error, response) => {
+                exec(`${commands.update} ${body.name}`, options, (error, response) => {
                     if (error !== null) {
                         console.log('exec error: ' + error);
                         return;

@@ -33,7 +33,7 @@ module.exports = {
             'package-json': (req, res) => {
                 const appRoot = req.app.locals.appRoot;
 
-                exec(commands.list, (error, list) => {
+                exec(commands.list, {maxBuffer: 1024 * 2000}, (error, list) => {
                     if (error !== null) {
                         console.log('exec error: ' + error);
                         return;

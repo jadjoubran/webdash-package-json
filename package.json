@@ -13,7 +13,8 @@
     "bower_components/",
     "*.js",
     "*.html",
-    "*.md"
+    "*.md",
+    "*.json"
   ],
   "devDependencies": {},
   "scripts": {

@@ -10,7 +10,10 @@
     "webdash": "^0.0.1"
   },
   "files": [
-    "*"
+    "bower_components/",
+    "*.js",
+    "*.html",
+    "*.md"
   ],
   "devDependencies": {},
   "scripts": {

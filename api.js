@@ -77,6 +77,10 @@ module.exports = {
             * npm outdated returns status code 1 rather than 0
             * thus we're not checking for error */
 
+          //outdated will be empty if there are no outdated packages
+          if (!outdated){
+            return res.send({result: false});
+          }
           const result = JSON.parse(outdated);
           res.send({ result });
         });

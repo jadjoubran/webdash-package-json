@@ -53,7 +53,11 @@ module.exports = {
               ...Object.keys(packageJson.dependencies),
               ...Object.keys(packageJson.devDependencies)
             ];
-            let installed = JSON.parse(list).data.trees;
+            let installed = [];
+            try {
+              installed = JSON.parse(list).data.trees;
+            } catch (error) {}
+
             installed = installed.filter(pkg =>
               deps.includes(yarnGetPkgName(pkg))
             );
@@ -66,7 +70,9 @@ module.exports = {
             }
             res.send({ result });
           } else {
-            result = JSON.parse(list).dependencies;
+            try {
+              result = JSON.parse(list).dependencies;
+            } catch (error) {}
             res.send({ result });
           }
         });
@@ -78,10 +84,13 @@ module.exports = {
             * thus we're not checking for error */
 
           //outdated will be empty if there are no outdated packages
-          if (!outdated){
-            return res.send({result: false});
+          if (!outdated) {
+            return res.send({ result: false });
           }
-          const result = JSON.parse(outdated);
+          let result = {};
+          try {
+            result = JSON.parse(outdated);
+          } catch (error) {}
           res.send({ result });
         });
       }

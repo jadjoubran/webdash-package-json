@@ -8,14 +8,14 @@ const canUseYarn = () => {
 const useYarn = canUseYarn();
 
 const commands = {
-  list: "npm list --depth=0 --json",
-  outdated: "npm outdated --json",
-  update: "npm update"
+  list: "npm list --depth=0 --json --silent",
+  outdated: "npm outdated --json --silent",
+  update: "npm update --silent"
 };
 
 if (useYarn) {
-  commands.list = "yarn list --depth=0 --json --no-progress";
-  commands.update = "yarn upgrade";
+  commands.list = "yarn list --depth=0 --json --no-progress --silent";
+  commands.update = "yarn upgrade --silent";
   //outdated is safe to be used by npm
 }
 

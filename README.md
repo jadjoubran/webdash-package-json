@@ -16,4 +16,4 @@ npm install --save-dev webdash-package-json
 
 ## Enjoying webdash?
 
-Say Hi! [@JoubranJad](https://twitter.com/JoubranJad)
+Say Hi on Twitter: [@JoubranJad](https://twitter.com/JoubranJad)

@@ -1,21 +1,15 @@
-# \<webdash-package-json\>
+# Webdash Package JSON
 
+![Package json preview](https://i.imgur.com/hBikrcr.png)
 
-
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
-
-## Viewing Your Element
-
-```
-$ polymer serve
+```bash
+npm install --save-dev webdash-package-json
 ```
 
-## Running Tests
+## Features
 
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+* Visualize your package.json
+* See installed versions
+* One-click update
+* Follows your version constraints
+* Works with `npm` & `yarn`

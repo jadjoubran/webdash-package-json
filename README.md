@@ -13,3 +13,7 @@ npm install --save-dev webdash-package-json
 * One-click update
 * Follows your version constraints
 * Works with `npm` & `yarn`
+
+## Enjoy webdash?
+
+Say Hi! [@JoubranJad](https://twitter.com/JoubranJad)

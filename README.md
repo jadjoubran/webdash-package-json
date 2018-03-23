@@ -1,5 +1,12 @@
 # Webdash Package JSON
 
+Stay on top of your installed packages and visualize your node dependencies.
+
+* View installed packages
+* View exact version installed
+* Get informed on outdated packages
+* Update packages in one-click
+
 ![Package json preview](https://i.imgur.com/hBikrcr.png)
 
 ```bash

@@ -7,11 +7,12 @@ Stay on top of your installed packages and visualize your node dependencies.
 * Get informed on outdated packages
 * Update packages in one-click
 
-![Package json preview](https://i.imgur.com/hBikrcr.png)
-
 ```bash
 npm install --save-dev webdash-package-json
 ```
+
+![Package json preview](https://i.imgur.com/hBikrcr.png)
+
 
 ## Features
 

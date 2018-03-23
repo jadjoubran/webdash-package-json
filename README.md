@@ -2,11 +2,6 @@
 
 Stay on top of your installed packages and visualize your node dependencies.
 
-* View installed packages
-* View exact version installed
-* Get informed on outdated packages
-* Update packages in one-click
-
 ```bash
 npm install --save-dev webdash-package-json
 ```
@@ -16,10 +11,10 @@ npm install --save-dev webdash-package-json
 
 ## Features
 
-* Visualize your package.json
-* See installed versions
-* One-click update
-* Follows your version constraints
+* View installed packages
+* View exact version installed
+* Get informed on outdated packages
+* Update packages in one-click
 * Works with `npm` & `yarn`
 
 ## Enjoying webdash?

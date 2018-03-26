@@ -36,12 +36,21 @@ module.exports = {
         const appRoot = req.app.locals.appRoot;
 
         exec(commands.list, options, (error, list) => {
-          if (error !== null) {
-            console.log("exec error: " + error);
-            return;
-          }
+           /* unexpected behavior in npm
+            * npm list returns status code 1 when unmet deps
+            * thus we're not checking for error */
 
           let result = {};
+
+          let installed = [];
+          try {
+            installed = JSON.parse(list).data.trees;
+          } catch (error) {
+            console.log('There')
+            console.log(error);
+            return res.send({ result })
+          }
+
           if (!fs.existsSync(`${appRoot}/package.json`)) {
             return res.send({ result });
           }
@@ -53,10 +62,6 @@ module.exports = {
               ...Object.keys(packageJson.dependencies),
               ...Object.keys(packageJson.devDependencies)
             ];
-            let installed = [];
-            try {
-              installed = JSON.parse(list).data.trees;
-            } catch (error) {}
 
             installed = installed.filter(pkg =>
               deps.includes(yarnGetPkgName(pkg))

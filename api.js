@@ -39,14 +39,21 @@ module.exports = {
            /* unexpected behavior in npm
             * npm list returns status code 1 when unmet deps
             * thus we're not checking for error */
-
           let result = {};
+
+          if (!list){
+            return res.send({ result });
+          }
 
           let installed = [];
           try {
-            installed = JSON.parse(list).data.trees;
+            installed = JSON.parse(list);
+            if (!installed || !installed.data){
+              return res.send({ result })
+            }
+            installed = installed.data.trees;
           } catch (error) {
-            console.log('There')
+            console.log('There was an error');
             console.log(error);
             return res.send({ result })
           }

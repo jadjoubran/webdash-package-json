@@ -48,10 +48,9 @@ module.exports = {
           let installed = [];
           try {
             installed = JSON.parse(list);
-            if (!installed || !installed.data){
+            if (!installed){
               return res.send({ result })
             }
-            installed = installed.data.trees;
           } catch (error) {
             console.log('There was an error');
             console.log(error);
@@ -62,6 +61,7 @@ module.exports = {
             return res.send({ result });
           }
           if (useYarn) {
+            installed = installed.data.trees;
             //need to filter out packages that are not in package.json
             const appRoot = req.app.locals.appRoot;
             const packageJson = require(`${appRoot}/package.json`);
@@ -83,7 +83,7 @@ module.exports = {
             res.send({ result });
           } else {
             try {
-              result = JSON.parse(list).dependencies;
+              result = installed.dependencies;
             } catch (error) {}
             res.send({ result });
           }

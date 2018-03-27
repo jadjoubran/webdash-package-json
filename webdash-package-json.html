@@ -170,6 +170,9 @@
 
             const packages = [];
             for (const [key, value] of Object.entries(data.result)) {
+              if (!value.version){
+                continue;
+              }
               packages.push({ name: key, version: value.version });
             }
             this.packages = packages;

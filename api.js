@@ -66,8 +66,8 @@ module.exports = {
             const appRoot = req.app.locals.appRoot;
             const packageJson = require(`${appRoot}/package.json`);
             const deps = [
-              ...Object.keys(packageJson.dependencies),
-              ...Object.keys(packageJson.devDependencies)
+              ...Object.keys(packageJson.dependencies || {}),
+              ...Object.keys(packageJson.devDependencies || {})
             ];
 
             installed = installed.filter(pkg =>
